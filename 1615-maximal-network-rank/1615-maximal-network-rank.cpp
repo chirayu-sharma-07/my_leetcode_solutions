@@ -1,23 +1,26 @@
 class Solution {
 public:
     int maximalNetworkRank(int n, vector<vector<int>>& roads) {
-        unordered_map<int,unordered_set<int>> adj;
+        vector<int> road(n,0);
+        vector<vector<bool>> isVisited(n,vector<bool>(n,false));
         for(int e=0;e<roads.size();e++){
             int i=roads[e][0];
             int j=roads[e][1];
-            adj[i].insert(j);
-            adj[j].insert(i);
+            road[i]++;
+            road[j]++;
+            isVisited[i][j]=true;
+            isVisited[j][i]=true;
         }
-        int result=0;
+        int answer=0;
         for(int e=0;e<n-1;e++){
             for(int f=e+1;f<n;f++){
-                int e_rank=adj[e].size();
-                int f_rank=adj[f].size();
-                int rank=e_rank+f_rank;
-                if(adj[e].find(f)!=adj[e].end()) rank--;
-                result=max(result,rank);
+                int i=road[e];
+                int j=road[f];
+                int total=i+j;
+                if(isVisited[e][f] || isVisited[f][e]) total--;
+                answer=max(total,answer);
             }
         }
-        return result;
+        return answer;
     }
 };
