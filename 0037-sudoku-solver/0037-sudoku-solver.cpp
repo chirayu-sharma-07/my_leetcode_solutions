@@ -1,20 +1,20 @@
 class Solution {
-public:
-    bool isValid(int row,int column,char digit,vector<vector<char>> &board){
-        for(int e=0;e<9;e++){
-            if(board[e][column]==digit) return false;
-            if(board[row][e]==digit) return false;
-            if(board[3*(row/3)+e/3][3*(column/3)+e%3]==digit) return false;
+private:
+    bool isValid(vector<vector<char>>& board,int e,int f,char c){
+        for(int i=0;i<9;i++){
+            if(board[e][i]==c) return false;
+            if(board[i][f]==c) return false;
+            if(board[3*(e/3)+i/3][3*(f/3)+i%3]==c) return false;
         }
         return true;
     }
-    bool sudokuSolver(vector<vector<char>> &board){
-        for(int e=0;e<board.size();e++){
-            for(int f=0;f<board[0].size();f++){
+    bool sudokuSolver(vector<vector<char>>& board){
+        for(int e=0;e<9;e++){
+            for(int f=0;f<9;f++){
                 if(board[e][f]=='.'){
-                    for(char digit='1';digit<='9';digit++){
-                        if(isValid(e,f,digit,board)){
-                            board[e][f]=digit;
+                    for(char c='1';c<='9';c++){
+                        if(isValid(board,e,f,c)){
+                            board[e][f]=c;
                             if(sudokuSolver(board)) return true;
                             board[e][f]='.';
                         }
@@ -25,6 +25,7 @@ public:
         }
         return true;
     }
+public:
     void solveSudoku(vector<vector<char>>& board) {
         sudokuSolver(board);
     }
