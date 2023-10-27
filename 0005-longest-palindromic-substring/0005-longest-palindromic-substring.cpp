@@ -1,36 +1,28 @@
 class Solution {
+private:
+    vector<int> expandAroundCentre(string s,int e,int f){
+        while(e>=0 && f<s.size() && s.at(e)==s.at(f)){
+            e--;
+            f++;
+        }
+        return {e+1,f-1};
+    }
 public:
     string longestPalindrome(string s) {
-        int n=s.size();
-        int dp[n][n];
-        int i=0;
-        int j=0;
-        int maxLength=-1;
-        for(int e=0;e<n;e++) dp[e][e]=1;
-        for(int e=0,f=1;f<n;e++,f++){
-            if(s[e]==s[f]){
-                maxLength=2;
-                i=e;
-                j=f;
+        if(s.size()==1) return s;
+        vector<int> resultantSubstringIndices={0,0};
+        for(int e=0;e<s.size();e++){
+            vector<int> palindromicSubstringIndices=expandAroundCentre(s,e,e);
+            if((palindromicSubstringIndices[1]-palindromicSubstringIndices[0])>(resultantSubstringIndices[1]-resultantSubstringIndices[0])){
+                resultantSubstringIndices=palindromicSubstringIndices;
             }
-        }
-        for(int e=0,f=1;f<n;e++,f++){
-            if(s[e]==s[f]) dp[e][f]=1;
-            else dp[e][f]=0;
-        }
-        for(int diff=2;diff<n;diff++){
-            for(int e=0,f=e+diff;f<n;f++,e++){
-                if(s[e]==s[f] && dp[e+1][f-1]==1){
-                    if((f-e)+1>maxLength){
-                        maxLength=(f-e)+1;
-                        i=e;
-                        j=f;
-                    }
-                    dp[e][f]=1;
+            if(e+1<s.size() && s.at(e)==s.at(e+1)){
+                vector<int> evenLengthPalindromicSubstringIndices=expandAroundCentre(s,e,e+1);
+                if(evenLengthPalindromicSubstringIndices[1]-evenLengthPalindromicSubstringIndices[0]>resultantSubstringIndices[1]-resultantSubstringIndices[0]){
+                    resultantSubstringIndices=evenLengthPalindromicSubstringIndices;
                 }
-                else dp[e][f]=0;
             }
         }
-        return s.substr(i,(j-i)+1);
+        return s.substr(resultantSubstringIndices[0],resultantSubstringIndices[1]-resultantSubstringIndices[0]+1);
     }
 };
