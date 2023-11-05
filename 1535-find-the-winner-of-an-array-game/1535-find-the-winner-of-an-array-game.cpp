@@ -27,6 +27,7 @@ public:
 class Solution {
 public:
     int getWinner(vector<int>& arr, int k) {
+        if(k>=arr.size()) return *std::max_element(arr.begin(),arr.end());
         int curr=arr[0];
         int winner=0;
         for(int e=1;e<arr.size();e++){
