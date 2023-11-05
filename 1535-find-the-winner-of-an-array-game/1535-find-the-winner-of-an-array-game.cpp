@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     int getWinner(vector<int>& arr, int k) {
@@ -20,5 +21,21 @@ public:
             if(myArray[arr[0]]==k) return arr[0];
         }
         return arr[0];
+    }
+};
+*/
+class Solution {
+public:
+    int getWinner(vector<int>& arr, int k) {
+        int curr=arr[0];
+        int winner=0;
+        for(int e=1;e<arr.size();e++){
+            if(arr[e]>curr){
+                curr=arr[e];
+                winner=0;
+            }
+            if(++winner==k) return curr;
+        }
+        return curr;
     }
 };
