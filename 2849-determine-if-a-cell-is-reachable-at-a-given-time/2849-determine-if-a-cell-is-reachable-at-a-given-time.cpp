@@ -1,32 +1,14 @@
 class Solution {
 public:
     bool isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
-        if(sx==fx && sy==fy){
+        int xAxis=abs(sx-fx);
+        int yAxis=abs(sy-fy);
+        if(xAxis==0 && yAxis==0){
             if(t==1) return false;
-            else return true;
+            return true;
         }
-        int e=0;
-        int f=e;
-        if(sx>fx)
-        {
-            e=sx-fx;
-        }
-        else
-        {
-            e=fx-sx;
-        }
-        if(sy>fy)
-        {
-            f=sy-fy;
-        }
-        else
-        {
-            f=fy-sy;
-        }
-        int g=0;
-        if(e>f) g=e;
-        else g=f;
-        if(g>t) return false;
+        int minTimeRequired=max(xAxis,yAxis);
+        if(minTimeRequired>t) return false;
         return true;
     }
 };
