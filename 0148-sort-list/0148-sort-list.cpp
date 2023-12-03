@@ -9,15 +9,41 @@
  * };
  */
 class Solution {
+private:
+    ListNode* MID(ListNode* head){
+        ListNode* slow=head;
+        ListNode* fast=slow;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+    ListNode* myFunction(ListNode* left,ListNode* right){
+        if(left==NULL || right==NULL) return (left==NULL)?right:left;
+        ListNode *newNode=new ListNode(7);
+        ListNode *curr=newNode;
+        while(left!=NULL && right!=NULL){
+            if(left->val<right->val){
+                curr->next=left;
+                left=left->next;
+            }else{
+                curr->next=right;
+                right=right->next;
+            }
+            curr=curr->next;
+        }
+        curr->next=(left==NULL)?right:left;
+        return newNode->next;
+    }
 public:
     ListNode* sortList(ListNode* head) {
         if(head==NULL || head->next==NULL) return head;
-        //Third class approach
-        vector<int> vec;
-        for(ListNode *list=head;list!=NULL;list=list->next) vec.push_back(list->val);
-        sort(vec.begin(),vec.end());
-        int e=0;
-        for(ListNode *list=head;list!=NULL;list=list->next,e++) list->val=vec[e];
-        return head;
+        ListNode* midNode=MID(head);
+        ListNode* newNode=midNode->next;
+        midNode->next=NULL;
+        ListNode *left_sub_list=sortList(head);
+        ListNode *right_sub_list=sortList(newNode);
+        return myFunction(left_sub_list,right_sub_list);
     }
 };
