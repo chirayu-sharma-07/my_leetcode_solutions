@@ -12,24 +12,60 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> result;
-        if(root==NULL) return result;
-        TreeNode *t1=root;
-        while(t1!=NULL){
-            if(t1->left==NULL){
-                result.push_back(t1->val);
-                t1=t1->right;
-            }else{
-                TreeNode *t2=t1->left;
-                while(t2->right!=NULL){
-                    t2=t2->right;
-                }
-                t2->right=t1;
-                TreeNode *t3=t1;
-                t1=t1->left;
-                t3->left=NULL;
-            }
-        }
+
+    //Recursive approach
+
+    /*vector<int> result;
+    void myFunction(TreeNode *root){
+        if(root==NULL) return;
+        myFunction(root->left);
+        result.push_back(root->val);
+        myFunction(root->right);
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        result.clear();
+        myFunction(root);
         return result;
+    }*/
+ 
+
+
+    // Traversing approach
+
+    /*vector<int> result;
+    if(root==NULL) return result;
+    TreeNode *e,*f;
+    stack<TreeNode*> stk;
+    for(e=root;e!=NULL;e=e->left) stk.push(e);
+    while(!(stk.empty())){
+        f=stk.top();
+        stk.pop();
+        result.push_back(f->val);
+        if(f->right!=NULL){
+            for(e=f->right;e!=NULL;e=e->left) stk.push(e);
+        }
+    }
+    return result;
+    */
+
+
+    //Morris Traversal
+
+    vector<int> result;
+    if(root==NULL) return result;
+    while(root!=NULL){
+        if(root->left==NULL){
+            result.push_back(root->val);
+            root=root->right;
+        }else{
+            TreeNode *e=root->left;
+            while(e->right!=NULL) e=e->right;
+            e->right=root;
+            TreeNode *f=root;
+            root=root->left;
+            f->left=NULL;
+        }
+    }
+    return result;
     }
 };
