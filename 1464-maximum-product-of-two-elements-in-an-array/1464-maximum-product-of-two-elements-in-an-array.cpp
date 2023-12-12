@@ -1,6 +1,8 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
+        //Brute Force Approach
+        /*
         int largest=INT_MIN;
         int n=nums.size();
         int largestIndex=-1;
@@ -18,5 +20,11 @@ public:
             if(nums[e]>secondLargest && nums[e]<largest) secondLargest=nums[e];
         }
         return (largest-1)*(secondLargest-1);
+        */
+
+        //Two Liner Smart Approach
+        
+        sort(begin(nums),end(nums));
+        return (nums[nums.size()-1]-1)*(nums[nums.size()-2]-1);
     }
 };
