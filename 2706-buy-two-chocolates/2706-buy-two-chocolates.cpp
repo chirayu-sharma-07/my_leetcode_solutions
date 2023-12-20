@@ -12,6 +12,8 @@ public:
         */
 
         //Smart approach
+
+        /*
         int smallest=INT_MAX;
         int secondSmallest=smallest;
         int n=prices.size();
@@ -29,5 +31,19 @@ public:
         }
         if(smallest+secondSmallest>money) return money;
         return money-(smallest+secondSmallest);
+        */
+
+        // Third approach
+
+        priority_queue<int,vector<int>,greater<int>> pq;
+        int n=prices.size();
+        for(int e=0;e<n;e++){
+            pq.push(prices[e]);
+        }
+        int e=pq.top();
+        pq.pop();
+        int f=pq.top();
+        if(e+f>money) return money;
+        return money-(e+f);
     }
 };
