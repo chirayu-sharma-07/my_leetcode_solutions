@@ -1,5 +1,9 @@
 class Solution {
 public:
+
+    // Top-Down DP (Recursion + Memoization)
+
+    /*
     int memo[101];
     int myFunction(int e,vector<int> &nums){
         if(e>=nums.size()) return 0;
@@ -13,7 +17,6 @@ public:
         // First Approach
         // Wrong approach, because it will give Wrong answer error with the testcase - [2,1,1,2] :(
 
-        /*
         int result1=0;
         int result2=result1;
         int n=nums.size();
@@ -22,11 +25,27 @@ public:
         }
         for(int e=1;e<n;e+=2) result2+=nums[e];
         return (result1<result2)?result2:result1;
-        */
 
         // Second approach
 
         memset(memo,-1,sizeof(memo));
         return myFunction(0,nums);
+    }
+    */
+
+    // Third approach
+    // Bottom-up DP
+
+    int rob(vector<int> &nums){
+        if(nums.size()==1) return nums[0];
+        if(nums.size()==2) return (nums[0]<nums[1])?nums[1]:nums[0];
+        int n=nums.size();
+        vector<int> bot_up(n+1,-1);
+        bot_up[0]=0;
+        bot_up[1]=nums[0];
+        for(int e=2;e<=n;e++){
+            bot_up[e]=(nums[e-1]+bot_up[e-2]<bot_up[e-1])?bot_up[e-1]:nums[e-1]+bot_up[e-2];
+        }
+        return bot_up[n];
     }
 };
