@@ -23,7 +23,8 @@ public:
     // Bottom-up approach
     // TC - O(n)
     // SC - O(n)
-
+    
+    /*
     int fib(int n){
         if(n<=1) return n;
         vector<int> bot_up(n+1,-1);
@@ -33,5 +34,23 @@ public:
             bot_up[e]=bot_up[e-1]+bot_up[e-2];
         }
         return bot_up[n];
+    }
+    */ 
+
+    // Third approach
+    // Most optimized approach
+    // TC - O(n)
+    // SC - O(1)
+    int fib(int n){
+        if(n<2) return n;
+        int e=0;
+        int f=1;
+        int g=0;
+        for(int h=2;h<=n;h++){
+            g=e+f;
+            e=f;
+            f=g;
+        }
+        return g;
     }
 };
