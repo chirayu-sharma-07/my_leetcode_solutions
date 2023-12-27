@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    // Approach One
+    // First Approach
     // Recursion_Memoization
 
     /*
@@ -24,6 +24,7 @@ public:
     // TC - O(n)
     // SC - O(n)
     
+    /*
     int climbStairs(int n){
         if(n==1) return 1;
         if(n==2 || n==3) return (n==2)?2:3;
@@ -36,5 +37,25 @@ public:
             bot_up[e]=bot_up[e-1]+bot_up[e-2];
         }
         return bot_up[n];
+    }
+    */
+
+    // Third approach
+    // Most optimized
+    // TC - O(n)
+    // SC - O(1)
+
+    int climbStairs(int n){
+        if(n==1) return 1;
+        if(n==2 || n==3) return (n==2)?2:3;
+        int a=2;
+        int b=3;
+        int c=0;
+        for(int e=4;e<=n;e++){
+            c=a+b;
+            a=b;
+            b=c;
+        }
+        return c;
     }
 };
