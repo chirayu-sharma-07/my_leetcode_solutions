@@ -36,6 +36,7 @@ public:
     // Third approach
     // Bottom-up DP
 
+    /*
     int rob(vector<int> &nums){
         if(nums.size()==1) return nums[0];
         if(nums.size()==2) return (nums[0]<nums[1])?nums[1]:nums[0];
@@ -47,5 +48,26 @@ public:
             bot_up[e]=(nums[e-1]+bot_up[e-2]<bot_up[e-1])?bot_up[e-1]:nums[e-1]+bot_up[e-2];
         }
         return bot_up[n];
+    }
+    */
+
+    // Third approach
+    // Bottom-up + constant space 
+    // TC - O(n)
+    // SC - O(1);
+
+    int rob(vector<int> &nums){
+        if(nums.size()==1) return nums[0];
+        if(nums.size()==2) return (nums[0]<nums[1])?nums[1]:nums[0];
+        int n=nums.size();
+        int a=0;
+        int b=nums[0];
+        int c=0;
+        for(int e=2;e<=n;e++){
+            c=(nums[e-1]+a<b)?b:nums[e-1]+a;
+            a=b;
+            b=c;
+        }
+        return c;
     }
 };
