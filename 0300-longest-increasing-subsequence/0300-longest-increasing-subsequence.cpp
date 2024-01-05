@@ -29,6 +29,7 @@ public:
     // Approach two
     // Bottom-up dp
     
+    /*
     int lengthOfLIS(vector<int>& nums){
         int n=nums.size();
         if(n==1) return 1;
@@ -44,5 +45,27 @@ public:
             }
         }
         return largest;
+    }
+    */
+
+    // Approach three
+    // Patience sorting
+
+    int lengthOfLIS(vector<int>& nums){
+        int n=nums.size();
+        if(n==1) return 1;
+        vector<int> sorted_array;
+        sorted_array.push_back(nums[0]);
+        for(int e=1;e<n;e++){
+            int f=0;
+            while(f<sorted_array.size() && nums[e]>sorted_array[f]){
+                f++;
+            }
+            if(f==sorted_array.size()) sorted_array.push_back(nums[e]);
+            else{
+                sorted_array[f]=nums[e];
+            }
+        }
+        return sorted_array.size();
     }
 };
