@@ -29,6 +29,7 @@ public:
     // Second approach
     // Recursion + Memoization
 
+    /*
     int n=0;
     bool myFunction(int e,vector<int> &nums,vector<int> &memo){
         if(e>=n) return true;
@@ -54,5 +55,40 @@ public:
         if(n==1) return true;
         vector<int> memo(n,0);
         return myFunction(0,nums,memo);
+    }
+    */
+
+    // Third Approach
+    // By populating true to deserving indexes
+
+    bool canJump(vector<int> &nums){
+        int n=nums.size();
+        if(n==1) return true;
+        if(nums[0]==0) return false;
+        vector<bool> populate(n,false);
+        populate[0]=true;
+        for(int e=0;e<n;e++){
+            if(nums[e]>0 && populate[e]==true){
+                int x=e+nums[e];
+                int f=e+1;
+                while(f<n && f<=x && populate[f]==true) f++;
+                if(f==x+1) continue;
+                while(f<n && f<=x){
+                    populate[f]=true;
+                    f++;
+                }
+                if(populate[n-1]==true) return true;
+            }else{
+                if(nums[e]==0){
+                    if(e==n-1){
+                        if(populate[e]==true) return true;
+                        return false;
+                    }else{
+                        if(populate[e+1]==false) return false;
+                    }
+                }
+            }
+        }
+        return populate[n-1];
     }
 };
