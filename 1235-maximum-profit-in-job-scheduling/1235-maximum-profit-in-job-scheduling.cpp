@@ -44,6 +44,7 @@ public:
     // Approach two
     // Recursion + Memoization + Binary Search
     
+    /*
     int n=0;
     int binarySearch(vector<vector<int>> &array,int left,int target){
         int right=n-1;
@@ -81,5 +82,47 @@ public:
         sort(begin(array),end(array),myComparator);
         vector<int> memo(n,-1);
         return recursiveFunction(0,array,memo);
+    }
+    */
+
+    // Submitting the previous approach code again only for the practice purpose
+
+    int n=0;
+    int binarySearch(vector<vector<int>> &array,int left,int target){
+        int right=n-1;
+        int result=n+1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(array[mid][0]>=target){
+                result=mid;
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return result;
+    }
+    int myFunction(int e,vector<vector<int>> &array,vector<int> &memo){
+        if(e>=n) return 0;
+        if(memo[e]!=-1) return memo[e];
+        int take=array[e][2]+myFunction(binarySearch(array,e+1,array[e][1]),array,memo);
+        int skip=myFunction(e+1,array,memo);
+        return memo[e]=(take<skip)?skip:take;
+    }
+    int jobScheduling(vector<int> &startTime,vector<int> &endTime, vector<int> &profit){
+        n=profit.size();
+        if(n==1) return profit[0];
+        vector<vector<int>> array(n,vector<int>(3));
+        for(int e=0;e<n;e++){
+            array[e][0]=startTime[e];
+            array[e][1]=endTime[e];
+            array[e][2]=profit[e];
+        }
+        auto comparator=[&](auto &vec1, auto &vec2){
+            return vec1[0]<=vec2[0];
+        };
+        sort(begin(array),end(array),comparator);
+        vector<int> memo(n,-1);
+        return myFunction(0,array,memo);
     }
 };
