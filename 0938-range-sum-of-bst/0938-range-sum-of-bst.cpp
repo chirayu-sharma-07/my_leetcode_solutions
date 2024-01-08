@@ -31,6 +31,7 @@ public:
     
     // Approach two
 
+    /*
     int l=0;
     int h=0;
     int result=0;
@@ -39,6 +40,29 @@ public:
         if(root->val>=l && root->val<=h) result+=root->val;
         myFunction(root->left);
         myFunction(root->right);
+    }
+    int rangeSumBST(TreeNode* root,int low,int high){
+        l=low;
+        h=high;
+        myFunction(root);
+        return result;
+    }
+    */
+
+    // Approach three
+    // Best approach
+
+    int l=0;
+    int h=0;
+    int result=0;
+    void myFunction(TreeNode *root){
+        if(root==NULL) return;
+        if(root->left!=NULL && root->val<=l) root->left=NULL;
+        if(root->right!=NULL && root->val>=h) root->right=NULL;
+        if(root->val>=l && root->val<=h) result+=root->val;
+        myFunction(root->left);
+        myFunction(root->right);
+
     }
     int rangeSumBST(TreeNode* root,int low,int high){
         l=low;
