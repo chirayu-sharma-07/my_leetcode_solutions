@@ -12,47 +12,51 @@
 class Solution {
 public:
     int amountOfTime(TreeNode* root, int start) {
-        unordered_map<int,vector<int>> us;
-        stack<pair<TreeNode *,int>>st;
+
+        // Approach one
+        // Converting Binary tree into undirected graph
+        // Applying BFS on that graph
+
+        unordered_map<int,vector<int>> um;
+        stack<pair<TreeNode *,int>> st;
         st.push(make_pair(root,-1));
         while(!st.empty()){
             TreeNode *t=st.top().first;
             int hasParent=st.top().second;
             st.pop();
-            if(hasParent!=-1) us[t->val].push_back(hasParent);
+            if(hasParent!=-1) um[t->val].push_back(hasParent);
             if(t->right!=NULL){
+                um[t->val].push_back(t->right->val);
                 st.push(make_pair(t->right,t->val));
-                us[t->val].push_back(t->right->val);
             }
             if(t->left!=NULL){
+                um[t->val].push_back(t->left->val);
                 st.push(make_pair(t->left,t->val));
-                us[t->val].push_back(t->left->val);
             }
         }
-        int result=0;
         queue<int> q;
         q.push(start);
         unordered_set<int> visited;
         visited.insert(start);
         int x=1;
+        int result=0;
         while(!q.empty()){
-            int num=0;
-            int push_count=0;
+            int count=0;
             while(x!=0){
-                num=q.front();
+                int num=q.front();
                 q.pop();
-                int n=us[num].size();
+                int n=um[num].size();
                 for(int e=0;e<n;e++){
-                    int y=us[num][e];
-                    if(visited.find(y)==visited.end()){
-                        visited.insert(y);
-                        push_count++;
-                        q.push(y);
+                    int f=um[num][e];
+                    if(visited.find(f)==visited.end()){
+                        visited.insert(f);
+                        count++;
+                        q.push(f);
+                    }
                 }
+                x--;
             }
-            x--;
-            }
-            x=push_count;
+            x=count;
             result++;
         }
         return result-1;
