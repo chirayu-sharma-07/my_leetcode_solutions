@@ -11,12 +11,14 @@
  */
 class Solution {
 public:
-    int amountOfTime(TreeNode* root, int start) {
 
-        // Approach one
-        // Converting Binary tree into undirected graph
-        // Applying BFS on that graph
+    // Approach one
+    // Converted Binary tree into undirected graph
+    // Applied BFS on that graph
 
+    /*
+
+    int amountOfTime(TreeNode* root, int start) {    
         unordered_map<int,vector<int>> um;
         stack<pair<TreeNode *,int>> st;
         st.push(make_pair(root,-1));
@@ -60,5 +62,35 @@ public:
             result++;
         }
         return result-1;
+    }
+    
+    */
+    
+    // Approach two
+    // One pass solution
+    // Recursive approach
+
+    int result=INT_MIN;
+    int st=0;
+    int myFunction(TreeNode *root){
+        if(root==NULL) return 0;
+        int left_sub_tree=myFunction(root->left);
+        int right_sub_tree=myFunction(root->right);
+        if(root->val==st){
+            result=(left_sub_tree>right_sub_tree)?left_sub_tree:right_sub_tree;
+            return -1;
+        }else if(left_sub_tree>=0 && right_sub_tree>=0){
+            return ((left_sub_tree<right_sub_tree)?right_sub_tree:left_sub_tree)+1;
+        }else{
+            int e=abs(left_sub_tree)+abs(right_sub_tree);
+            result=(result>e)?result:e;
+            return ((left_sub_tree>right_sub_tree)?right_sub_tree:left_sub_tree)-1;
+        }
+        return 0;
+    }
+    int amountOfTime(TreeNode* root, int start) {
+        st=start;
+        myFunction(root);
+        return result;
     }
 };
