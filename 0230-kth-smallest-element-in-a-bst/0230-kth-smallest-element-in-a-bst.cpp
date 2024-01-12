@@ -81,8 +81,9 @@ public:
     // Most optimized approach
 
     int K=0;
-    int result=0;
+    int result=-1;
     void myFunction(TreeNode *root){
+        if(result!=-1) return;
         if(root==NULL) return;
         myFunction(root->left);
         K--;
