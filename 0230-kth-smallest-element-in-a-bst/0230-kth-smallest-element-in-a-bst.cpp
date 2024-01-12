@@ -42,6 +42,7 @@ public:
 
     // Approach two
 
+    /*
     vector<int> vec;
     void myFunction(TreeNode *root){
         if(root==NULL) return;
@@ -53,5 +54,22 @@ public:
         myFunction(root);
         sort(begin(vec),end(vec));
         return vec[k-1];
+    }
+    */
+
+    // Approach three
+    // Inorder traversal
+
+    vector<int> vec;
+
+    void myFunction(TreeNode *root){
+        if(root==NULL) return;
+        myFunction(root->left);
+        vec.push_back(root->val);
+        myFunction(root->right);
+    }
+    int kthSmallest(TreeNode* root,int k){
+        myFunction(root);
+        return vec[k-1];    
     }
 };
