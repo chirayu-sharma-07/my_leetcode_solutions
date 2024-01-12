@@ -60,6 +60,7 @@ public:
     // Approach three
     // Inorder traversal
 
+    /*
     vector<int> vec;
 
     void myFunction(TreeNode *root){
@@ -71,5 +72,26 @@ public:
     int kthSmallest(TreeNode* root,int k){
         myFunction(root);
         return vec[k-1];    
+    }
+    */
+
+
+    // Approach four
+    // Inorder traversal without extra memory
+    // Most optimized approach
+
+    int K=0;
+    int result=0;
+    void myFunction(TreeNode *root){
+        if(root==NULL) return;
+        myFunction(root->left);
+        K--;
+        if(K==0) result=root->val;
+        myFunction(root->right);
+    }
+    int kthSmallest(TreeNode* root,int k){
+        K=k;
+        myFunction(root);
+        return result;
     }
 };
