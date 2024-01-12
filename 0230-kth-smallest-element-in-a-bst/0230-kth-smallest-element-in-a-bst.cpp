@@ -11,6 +11,10 @@
  */
 class Solution {
 public:
+    
+    // First approach
+
+    /*
     struct Comparator
     {
         bool operator()(const int&a,const int&b)
@@ -32,5 +36,22 @@ public:
             pq.pop();
         }
         return pq.top();
+    }
+    */
+
+
+    // Approach two
+
+    vector<int> vec;
+    void myFunction(TreeNode *root){
+        if(root==NULL) return;
+        vec.push_back(root->val);
+        myFunction(root->left);
+        myFunction(root->right);
+    }
+    int kthSmallest(TreeNode* root, int k){
+        myFunction(root);
+        sort(begin(vec),end(vec));
+        return vec[k-1];
     }
 };
