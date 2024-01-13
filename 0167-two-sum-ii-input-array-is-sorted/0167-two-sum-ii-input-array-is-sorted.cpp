@@ -22,8 +22,8 @@ public:
         int e=0;
         while(e<f){
             if(numbers[e]+numbers[f]==target) return {e+1,f+1};
-            else if(numbers[e]+numbers[f]>target) f--;
-            else e++;
+            else if(numbers[e]+numbers[f]<target) e++;
+            else f--;
         }
         return {-1,-1};
     }
