@@ -3,8 +3,8 @@ public:
     bool closeStrings(string word1, string word2) {
         if(word1.size()!=word2.size()) return false;
         int n=word1.size();
-        vector<int> freq1(26,0);
-        vector<int> freq2(26,0);
+        vector<int> freq1(26);
+        vector<int> freq2(26);
         for(int e=0;e<n;e++){
             freq1[word1[e]-'a']++;
             freq2[word2[e]-'a']++;
@@ -14,9 +14,6 @@ public:
         }
         sort(begin(freq1),end(freq1));
         sort(begin(freq2),end(freq2));
-        for(int e=0;e<26;e++){
-            if(freq1[e]!=freq2[e]) return false;
-        }
-        return true;
+        return freq1==freq2;
     }
 };
