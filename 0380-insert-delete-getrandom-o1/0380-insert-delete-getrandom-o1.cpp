@@ -1,5 +1,10 @@
 class RandomizedSet {
 public:
+
+    // First approach
+    // Taking O(n) Time complexity for insert and remove
+
+    /*
     vector<int> vec;
     RandomizedSet() {
         
@@ -28,6 +33,41 @@ public:
     
     int getRandom() {
         return vec[rand()%vec.size()];
+    }
+    */
+
+
+    // Second approach
+    // Taking O(n) Time complexity for all the operations
+    
+    vector<int> vec;
+    unordered_map<int,int> myMap;
+    int getRandom()
+    {
+        return vec[rand()%vec.size()];
+    }
+    bool remove(int val)
+    {
+        if(myMap[val]==0) return false;
+        int index=myMap[val]-1;
+        myMap[val]=0;
+        if(index<vec.size()-1){
+            vec[index]=vec[vec.size()-1];
+            myMap[vec[index]]=index+1;
+        }
+        vec.pop_back();
+        return true;
+    }
+    bool insert(int val)
+    {
+        if(myMap[val]!=0) return false;
+        vec.push_back(val);
+        myMap[val]=vec.size();
+        return true;
+    }
+    RandomizedSet()
+    {
+        
     }
 };
 
