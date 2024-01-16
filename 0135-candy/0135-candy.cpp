@@ -30,6 +30,7 @@ public:
         // Approach two
         // TC - O(2N), SC - O(N)
 
+        /*
         int n=ratings.size();
         vector<int> result_count(n,1);
         for(int e=1;e<n;e++){
@@ -42,6 +43,35 @@ public:
         }
         int result=0;
         for(int e=0;e<n;e++) result+=result_count[e];
+        return result;
+        */
+
+        // Approach three
+        // TC - O(N) , SC - O(1)
+
+        int n=ratings.size();
+        int result=n;
+        int e=1;
+        while(e<n){
+            if(ratings[e]==ratings[e-1]){
+                e++;
+                continue;
+            }
+            int peak=0;
+            while(ratings[e]>ratings[e-1]){
+                peak++;
+                result+=peak;
+                e++;
+                if(e==n) return result;
+            }
+            int dip=0;
+            while(e<n && ratings[e]<ratings[e-1]){
+                dip++;
+                result+=dip;
+                e++;
+            }
+            result-=min(peak,dip);
+        }
         return result;
     }
 };
