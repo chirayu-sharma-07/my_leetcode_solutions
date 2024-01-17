@@ -1,6 +1,10 @@
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& arr) {
+
+        // Approach one
+        
+        /*
         sort(begin(arr),end(arr));
         int n=arr.size();
         unordered_set<int> mySet;
@@ -14,6 +18,29 @@ public:
             }
             if(mySet.find(count)!=mySet.end()) return false;
             mySet.insert(count);
+        }
+        return true;
+        */
+
+
+        // Approach two
+
+        int n=arr.size();
+        unordered_map<int,int> myMap;
+        for(int e=0;e<n;e++){
+            myMap[arr[e]]++;
+            arr[e]=0;
+        }
+        int e=0;
+        for(auto &mp:myMap){
+            arr[e]=mp.second;
+            e++;
+        }
+        sort(begin(arr),end(arr));
+        e=0;
+        while(arr[e]==0) e++;
+        for(;e<n-1;e++){
+            if(arr[e]==arr[e+1]) return false;
         }
         return true;
     }
