@@ -25,6 +25,7 @@ public:
 
         // Approach two
 
+        /*
         int n=arr.size();
         unordered_map<int,int> myMap;
         for(int e=0;e<n;e++){
@@ -41,6 +42,28 @@ public:
         while(arr[e]==0) e++;
         for(;e<n-1;e++){
             if(arr[e]==arr[e+1]) return false;
+        }
+        return true;
+        */
+
+        // Approach three
+
+        int n=arr.size();
+        unordered_map<int,int> myMap;
+        int e=0;
+        for(;e<n;e++){
+            myMap[arr[e]]++;
+        }
+        n=myMap.size();
+        vector<int> myArray(n);
+        e=0;
+        for(auto &mp:myMap){
+            myArray[e]=mp.second;
+            e++;
+        }
+        sort(begin(myArray),end(myArray));
+        for(e=0;e<n-1;e++){
+            if(myArray[e]==myArray[e+1]) return false;
         }
         return true;
     }
