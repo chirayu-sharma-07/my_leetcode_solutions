@@ -63,45 +63,7 @@ public:
     */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /*
 
     int myFunction(int n,vector<int> &memo){
         if(n<0) return 0;
@@ -112,5 +74,20 @@ public:
     int climbStairs(int n){
         vector<int> memo(n+1,-1);
         return myFunction(n,memo);
+    }
+    */
+
+    int climbStairs(int n){
+        if(n==1) return 1;
+        if(n==2) return 2;
+        if(n==3) return 3;
+        vector<int> myArray(n+1);
+        myArray[0]=0;
+        myArray[1]=1;
+        myArray[2]=2;
+        for(int e=3;e<=n;e++){
+            myArray[e]=myArray[e-1]+myArray[e-2];
+        }
+        return myArray[n];
     }
 };
