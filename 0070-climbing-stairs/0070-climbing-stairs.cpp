@@ -45,6 +45,8 @@ public:
     // TC - O(n)
     // SC - O(1)
 
+    /*
+
     int climbStairs(int n){
         if(n==1) return 1;
         if(n==2 || n==3) return (n==2)?2:3;
@@ -57,5 +59,58 @@ public:
             b=c;
         }
         return c;
+    }
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    int myFunction(int n,vector<int> &memo){
+        if(n<0) return 0;
+        if(n==0) return 1;
+        if(memo[n]!=-1) return memo[n];
+        return memo[n]=myFunction(n-1,memo)+myFunction(n-2,memo);
+    }
+    int climbStairs(int n){
+        vector<int> memo(n+1,-1);
+        return myFunction(n,memo);
     }
 };
