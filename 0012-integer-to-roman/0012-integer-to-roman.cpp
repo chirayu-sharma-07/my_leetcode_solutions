@@ -1,5 +1,11 @@
 class Solution {
 public:
+
+    // Approach one
+    // Brute force approach
+    // But still having better space and time complexity
+
+    /*
     string result="";
     int digit_count_four_hai(int num){
         while(num/1000!=0){
@@ -99,6 +105,25 @@ public:
             else
             {
                 num=digit_count_one_hai(num);
+            }
+        }
+        return result;
+    }
+    */
+
+
+    // Approach two
+    // Simple approach
+    
+    string intToRoman(int num){
+        static vector<int> myInteger{1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        static vector<string> myString{"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        string result="";
+        for(int e=0;e<13;e++){
+            int times=num/myInteger[e];
+            while(times--){
+                result+=myString[e];
+                num=num%myInteger[e];
             }
         }
         return result;
