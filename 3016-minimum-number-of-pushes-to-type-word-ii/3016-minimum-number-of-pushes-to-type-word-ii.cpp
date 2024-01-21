@@ -1,6 +1,11 @@
 class Solution {
 public:
     int minimumPushes(string word) {
+
+        // My First approach
+        // 100% Runtime efficiency
+
+        /*
         vector<int> frequency(26,0);
         int n=word.size();
         for(int e=0;e<n;e++){
@@ -27,6 +32,33 @@ public:
         if(frequency[e]!=0) result+=(frequency[e]*4);
         e++;
         if(frequency[e]!=0) result+=(frequency[e]*4);
+        return result;
+        */
+
+        // My Second approach
+        // It will use some extra memory space
+
+        unordered_map<char,int> myMap;
+        int n=word.size();
+        for(int e=0;e<n;e++) myMap[word[e]]++;
+        priority_queue<int> pq;
+        for(auto e:myMap){
+            pq.push(e.second);
+        }
+        int times=1;
+        int result=0;
+        while(!pq.empty()){
+            int count=0;
+            while(!pq.empty() && count<8){
+                count++;
+                int element=pq.top();
+                pq.pop();
+                result+=(element*times);
+            }
+            if(count==8){
+                times++;
+            }
+        }
         return result;
     }
 };
