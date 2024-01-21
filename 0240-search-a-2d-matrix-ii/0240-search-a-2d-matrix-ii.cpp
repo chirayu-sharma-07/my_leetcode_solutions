@@ -1,5 +1,6 @@
 class Solution {
 public:
+    /*
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         // Brute force approach
         /*
@@ -15,6 +16,7 @@ public:
 
         // Second approach
 
+        /*
         int m=matrix.size();
         int n=matrix[0].size();
         int e=0;
@@ -35,6 +37,23 @@ public:
                 f++;
             }
             if(e==n || f==m) break;
+        }
+        return false;
+        }
+    }
+    */
+
+    // Third approach
+
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size();
+        int n=matrix[0].size();
+        int e=0;
+        int f=n-1;
+        while(e<m && f>=0){
+            if(matrix[e][f]==target) return true;
+            if(matrix[e][f]>target) f--;
+            else e++;
         }
         return false;
     }
