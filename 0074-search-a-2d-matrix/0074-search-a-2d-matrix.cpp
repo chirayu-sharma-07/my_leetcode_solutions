@@ -43,7 +43,7 @@ public:
     return false;
     */
 
-
+    /*
     int m=matrix.size();
     int n=matrix[0].size();
     vector<int> vec(m*n);
@@ -61,6 +61,17 @@ public:
         if(vec[mid]==target) return true;
         if(vec[mid]<target) g=mid+1;
         else m=mid-1;
+    }
+    return false;
+    */
+
+
+    int m=matrix.size();
+    int n=matrix[0].size();
+    for(int e=0;e<m;e++){
+        for(int f=0;f<n;f++){
+            if(matrix[e][f]==target) return true;
+        }
     }
     return false;
     }
