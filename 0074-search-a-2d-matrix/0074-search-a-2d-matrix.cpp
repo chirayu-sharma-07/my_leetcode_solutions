@@ -24,6 +24,7 @@ public:
         return false;
         */
 
+    /*
     int m=matrix.size();
     int n=matrix[0].size();
     int e=m-1;
@@ -38,6 +39,28 @@ public:
         if(matrix[e][mid]<target){
             left=mid+1;
         }else right=mid-1;
+    }
+    return false;
+    */
+
+
+    int m=matrix.size();
+    int n=matrix[0].size();
+    vector<int> vec(m*n);
+    int g=0;
+    for(int e=0;e<m;e++){
+        for(int f=0;f<n;f++){
+            vec[g]=matrix[e][f];
+            g++;
+        }
+    }
+    g=0;
+    m=(m*n)-1;
+    while(g<=m){
+        int mid=g+(m-g)/2;
+        if(vec[mid]==target) return true;
+        if(vec[mid]<target) g=mid+1;
+        else m=mid-1;
     }
     return false;
     }
