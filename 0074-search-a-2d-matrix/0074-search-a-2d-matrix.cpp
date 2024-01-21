@@ -65,13 +65,26 @@ public:
     return false;
     */
 
-
+    /*
     int m=matrix.size();
     int n=matrix[0].size();
     for(int e=0;e<m;e++){
         for(int f=0;f<n;f++){
             if(matrix[e][f]==target) return true;
         }
+    }
+    return false;
+    */
+
+    int m=matrix.size();
+    int n=matrix[0].size();
+    int left=0;
+    int right=(m*n)-1;
+    while(left<=right){
+        int mid=left+(right-left)/2;
+        if(matrix[mid/n][mid%n]==target) return true;
+        else if(matrix[mid/n][mid%n]<target) left=mid+1;
+        else right=mid-1;
     }
     return false;
     }
