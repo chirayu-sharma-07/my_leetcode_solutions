@@ -94,6 +94,7 @@ public:
     }
     */
 
+    /*
     bool canJump(vector<int> &nums){
         int n=nums.size();
         if(n==1) return true;
@@ -107,6 +108,29 @@ public:
                 f++;
             }
         }
+        return visited[n-1];
+    }
+    */
+
+    bool canJump(vector<int> &nums){
+        int n=nums.size();
+        if(n==1) return true;
+        vector<bool> visited(n,false);
+        for(int e=0;e<n-1;e++){
+            if(e+nums[e]>=n-1){
+                return true;
+            }
+            if(nums[e]==0){
+                int f=e+1;
+                while(f<n){
+                    if(visited[f]==true) break;
+                    f++;
+                }
+                if(f==n) return false;
+            }
+            visited[e+nums[e]]=true;
+        }
+        for(int e=0;e<n;e++) cout<<visited[e]<<endl;
         return visited[n-1];
     }
 };
