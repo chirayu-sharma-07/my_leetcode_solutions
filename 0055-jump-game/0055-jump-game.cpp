@@ -61,6 +61,7 @@ public:
     // Third Approach
     // By populating true to deserving indexes
 
+    /*
     bool canJump(vector<int> &nums){
         int n=nums.size();
         if(n==1) return true;
@@ -90,5 +91,22 @@ public:
             }
         }
         return populate[n-1];
+    }
+    */
+
+    bool canJump(vector<int> &nums){
+        int n=nums.size();
+        if(n==1) return true;
+        vector<bool> visited(n,false);
+        for(int e=0;e<n;e++){
+            if(e<n-1 && nums[e]==0 && visited[e+1]==false) return false;
+            int num=nums[e];
+            int f=e+1;
+            while(f<n && num--){
+                visited[f]=true;
+                f++;
+            }
+        }
+        return visited[n-1];
     }
 };
