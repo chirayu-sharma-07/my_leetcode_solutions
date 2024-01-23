@@ -37,6 +37,7 @@ public:
 
     // Approach two
 
+    /*
     int N=0;
     bool check(string s1,string s2){
         int freq[26]={0};
@@ -56,6 +57,37 @@ public:
         if(check(arr[e],temp_string)) take=myFunction(arr,e+1,temp_string+arr[e]);
         skip=myFunction(arr,e+1,temp_string);
         return max(take,skip);
+    }
+    int maxLength(vector<string> &arr){
+        N=arr.size();
+        return myFunction(arr,0,"");
+    }
+    */
+
+    // Approach three
+    // Recursion + Memoization
+
+    int N=0;
+    unordered_map<string,int> myMap;
+    bool check(string first,string second){
+        int freq[26]={0};
+        for(char &ch:first){
+            if(freq[ch-'a']!=0) return false;
+            freq[ch-'a']++;
+        }
+        for(char &ch:second){
+            if(freq[ch-'a']!=0) return false;
+        }
+        return true;
+    }
+    int myFunction(vector<string> &arr,int e,string temp_string){
+        if(e>=N) return temp_string.size();
+        if(myMap.find(temp_string)!=myMap.end()) return myMap[temp_string];
+        int take=0;
+        int skip=0;
+        if(check(arr[e],temp_string)) take=myFunction(arr,e+1,temp_string+arr[e]);
+        skip=myFunction(arr,e+1,temp_string);
+        return myMap[temp_string]=(take>skip)?take:skip;
     }
     int maxLength(vector<string> &arr){
         N=arr.size();
