@@ -28,6 +28,7 @@ public:
     // Approach two
     // Little bit optimized than previous approach
 
+    /*
     string s,t;
     int m,n;
     int memo[1001][1001];
@@ -44,5 +45,22 @@ public:
         n=t.size();
         memset(memo,-1,sizeof(memo));
         return findLongestCommonSubsequence(0,0);
+    }
+    */
+
+    // Approach three
+    // Bottom-up DP
+
+    int longestCommonSubsequence(string s1,string s2){
+        int m=s1.size();
+        int n=s2.size();
+        vector<vector<int>> bot_up(m+1,vector<int>(n+1));
+        for(int e=1;e<=m;e++){
+            for(int f=1;f<=n;f++){
+                if(s1[e-1]==s2[f-1]) bot_up[e][f]=1+bot_up[e-1][f-1];
+                else bot_up[e][f]=max(bot_up[e][f-1],bot_up[e-1][f]);
+            }
+        }
+        return bot_up[m][n];
     }
 };
