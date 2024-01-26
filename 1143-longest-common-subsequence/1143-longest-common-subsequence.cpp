@@ -51,6 +51,7 @@ public:
     // Approach three
     // Bottom-up DP
 
+    /*
     int longestCommonSubsequence(string s1,string s2){
         int m=s1.size();
         int n=s2.size();
@@ -62,5 +63,26 @@ public:
             }
         }
         return bot_up[m][n];
+    }
+    */
+
+    // Once more for practice purpose
+
+    string s,t;
+    int m,n;
+    int memo[1001][1001];
+    int recursiveFunction(int e,int f){
+        if(e==m || f==n) return 0;
+        if(memo[e][f]!=-1) return memo[e][f];
+        if(s[e]==t[f]) return memo[e][f]=1+recursiveFunction(e+1,f+1);
+        return memo[e][f]=max(recursiveFunction(e,f+1),recursiveFunction(e+1,f));
+    }
+    int longestCommonSubsequence(string s1,string s2){
+        m=s1.size();
+        n=s2.size();
+        s=s1;
+        t=s2;
+        memset(memo,-1,sizeof(memo));
+        return recursiveFunction(0,0);
     }
 };
