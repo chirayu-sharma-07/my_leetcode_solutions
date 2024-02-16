@@ -51,6 +51,7 @@ public:
 
         // Third approach
 
+        /*
         int n=arr.size();
         unordered_map<int,int> mp;
         for(int e=0;e<n;e++) mp[arr[e]]++;
@@ -67,6 +68,28 @@ public:
             result--;
             if(k==0) return result;
             if(k<0) return result+1;
+        }
+        return 0;
+        */
+        
+        //Fourth approach
+        
+        int n=arr.size();
+        unordered_map<int,int> mp;
+        for(int e=0;e<n;e++) mp[arr[e]]++;
+        priority_queue<int,vector<int>,greater<int>> pq;
+        int result=0;
+        for(auto &e:mp){
+            pq.push(e.second);
+            result++;
+        }
+        while(!pq.empty()){
+            k-=pq.top();
+            pq.pop();
+            result--;
+            if(k==0 || k<0){
+                return (k<0)?result+1:result;
+            }
         }
         return 0;
     }
