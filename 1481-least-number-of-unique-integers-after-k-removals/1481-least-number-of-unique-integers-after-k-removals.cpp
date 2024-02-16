@@ -74,6 +74,7 @@ public:
         
         //Fourth approach
         
+        /*
         int n=arr.size();
         unordered_map<int,int> mp;
         for(int e=0;e<n;e++) mp[arr[e]]++;
@@ -90,6 +91,48 @@ public:
             if(k==0 || k<0){
                 return (k<0)?result+1:result;
             }
+        }
+        return 0;
+        */
+        
+        // Fifth approach
+        
+        /*
+        int n=arr.size();
+        vector<int> freq(n+1,0);
+        unordered_map<int,int> mp;
+        for(int e=0;e<n;e++) mp[arr[e]]++;
+        int result=0;
+        for(auto &e:mp){
+            freq[e.second]++;
+            result++;
+        }
+        if(k==0) return result;
+        for(int e=0;e<=n;e++){
+            if(freq[e]==0) continue;
+            k-=(e*freq[e]);
+            result-=freq[e]+k;
+            if(k==0) return result;
+            if(k<0) return result+freq[e];
+        }
+        return 0;
+        */
+        
+        // sixth approach
+        
+        int n=arr.size();
+        unordered_map<int,int> mp;
+        for(int e=0;e<n;e++) mp[arr[e]]++;
+        int y=mp.size();
+        vector<int> freq(n+1,0);
+        for(auto &e:mp){
+            freq[e.second]++;
+        }
+        for(int e=1;e<=n;e++){
+            int x=min(k/e,freq[e]);
+            k-=(x*e);
+            y-=x;
+            if(k<=e) return y;
         }
         return 0;
     }
