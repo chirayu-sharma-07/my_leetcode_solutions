@@ -26,6 +26,9 @@ public:
         return result;
         */
 
+        // Second approach
+
+        /*
         unordered_map<int,int> myMap;
         int n=arr.size();
         for(int e=0;e<n;e++) myMap[arr[e]]++;
@@ -44,5 +47,27 @@ public:
             else count--;
         }
         return count;
+        */
+
+        // Third approach
+
+        int n=arr.size();
+        unordered_map<int,int> mp;
+        for(int e=0;e<n;e++) mp[arr[e]]++;
+        vector<int> vec;
+        int result=0;
+        for(auto &e:mp){
+            vec.push_back(e.second);
+            result++;
+        }
+        if(k==0) return result;
+        sort(begin(vec),end(vec));
+        for(int e=0;e<vec.size();e++){
+            k-=vec[e];
+            result--;
+            if(k==0) return result;
+            if(k<0) return result+1;
+        }
+        return 0;
     }
 };
