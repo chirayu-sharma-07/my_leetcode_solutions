@@ -40,11 +40,21 @@ public:
         
         // Fourth approach
         
+        /*
         sort(begin(nums),end(nums));
         int n=nums.size();
         for(int e=0;e<n;e++){
             if(e!=nums[e]) return e;
         }
         return n;
+        */
+        
+        int n=nums.size();
+        int result=n;
+        for(int e=0;e<n;e++){
+            result=result^e;
+            result=result^nums[e];
+        }
+        return result;
     }
 };
