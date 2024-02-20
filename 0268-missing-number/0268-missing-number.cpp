@@ -2,7 +2,7 @@ class Solution {
 public:
     int missingNumber(vector<int>& nums) {
 
-        // Noob approach
+        // Noob approach (First approach)
         
         /*
         unordered_set<int> mySet;
@@ -49,11 +49,30 @@ public:
         return n;
         */
         
+        // Fifth approach
+        
+        /*
         int n=nums.size();
         int result=n;
         for(int e=0;e<n;e++){
             result=result^e;
             result=result^nums[e];
+        }
+        return result;
+        */
+        
+        // Sixth approach
+        
+        sort(begin(nums),end(nums));
+        int e=0;
+        int f=nums.size()-1;
+        int result=f+1;
+        while(e<=f){
+            int mid=e+(f-e)/2;
+            if(nums[mid]>mid){
+                result=mid;
+                f=mid-1;
+            }else e=mid+1;
         }
         return result;
     }
