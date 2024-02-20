@@ -19,6 +19,7 @@ public:
         
         // Second approach
         
+        /*
         sort(begin(nums),end(nums));
         if(nums[0]!=0) return 0;
         int n=nums.size();
@@ -26,5 +27,13 @@ public:
             if((nums[e]+1)!=nums[e+1]) return nums[e]+1;
         }
         return n;
+        */
+        
+        // Third approach
+        
+        int n=nums.size();
+        int sum=n*(n+1)/2;
+        for(int e=0;e<n;e++) sum-=nums[e];
+        return sum;
     }
 };
