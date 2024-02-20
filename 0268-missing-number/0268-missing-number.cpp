@@ -31,9 +31,20 @@ public:
         
         // Third approach
         
+        /*
         int n=nums.size();
         int sum=n*(n+1)/2;
         for(int e=0;e<n;e++) sum-=nums[e];
         return sum;
+        */
+        
+        // Fourth approach
+        
+        sort(begin(nums),end(nums));
+        int n=nums.size();
+        for(int e=0;e<n;e++){
+            if(e!=nums[e]) return e;
+        }
+        return n;
     }
 };
