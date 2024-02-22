@@ -49,6 +49,7 @@ public:
         
         // Fourth approach
         
+        /*
         if(n==1) return 1;
         vector<int> freq1(n+1,0);
         vector<int> freq2(n+1,0);
@@ -59,6 +60,22 @@ public:
         }
         for(int e=0;e<=n;e++){
             if(freq2[e]==n-1 && freq1[e]==0) return e;
+        }
+        return -1;
+        */
+
+        // Fifth approach
+
+        if(n==1) return 1;
+        vector<bool> hehe(n+1,false);
+        unordered_map<int,int> myMap;
+        int m=trust.size();
+        for(int e=0;e<m;e++){
+            hehe[trust[e][0]]=true;
+            myMap[trust[e][1]]++;
+        }
+        for(auto &e:myMap){
+            if(e.second==n-1 && hehe[e.first]==false) return e.first;
         }
         return -1;
     }
