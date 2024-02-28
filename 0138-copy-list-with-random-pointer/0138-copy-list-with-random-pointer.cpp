@@ -20,31 +20,28 @@ public:
         
         // First approach
 
-        if(head==NULL) return head;
         Node *new_head=NULL;
-        Node *s=head;
         Node *prev=NULL;
+        Node *e=head;
         unordered_map<Node*,Node*> myMap;
-        while(s){
-            Node *new_node=new Node(s->val);
-            if(prev==NULL){
+        while(e){
+            Node *new_node=new Node(e->val);
+            if(new_head==NULL){
                 new_head=new_node;
                 prev=new_node;
             }else{
                 prev->next=new_node;
-                prev=prev->next;
+                prev=new_node;
             }
-            myMap[s]=new_node;
-            s=s->next;
+            myMap[e]=new_node;
+            e=e->next;
         }
-        s=head;
-        Node *t=new_head;
-        while(s){
-            if(s->random==NULL){
-                t->random=NULL;
-            }else t->random=myMap[s->random];
-            s=s->next;
-            t=t->next;
+        e=head;
+        prev=new_head;
+        while(e){
+            prev->random=myMap[e->random];
+            e=e->next;
+            prev=prev->next;
         }
         return new_head;
     }
