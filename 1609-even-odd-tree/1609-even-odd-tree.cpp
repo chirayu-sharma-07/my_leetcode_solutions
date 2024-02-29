@@ -12,6 +12,10 @@
 class Solution {
 public:
     bool isEvenOddTree(TreeNode* root) {
+
+        // First approach
+
+        /*
         if(root->val%2==0) return false;
         vector<vector<TreeNode*>> vec;
         vector<TreeNode*> sub_vec;
@@ -43,6 +47,39 @@ public:
                 }
                 if(values_only[m-1]%2!=0) return false; 
             }
+        }
+        return true;
+        */
+
+        // Second approach
+
+        vector<TreeNode*> vec;
+        vec.push_back(root);
+        int level=0;
+        while(vec.size()!=0){
+            int n=vec.size();
+            if(level==0){
+                if(vec[0]->val%2==0) return false;
+                for(int e=1;e<n;e++){
+                    if(vec[e-1]->left) vec.push_back(vec[e-1]->left);
+                    if(vec[e-1]->right) vec.push_back(vec[e-1]->right);
+                    if(vec[e]->val%2==0 || vec[e-1]->val>=vec[e]->val) return false;
+                }
+                if(vec[n-1]->left) vec.push_back(vec[n-1]->left);
+                if(vec[n-1]->right) vec.push_back(vec[n-1]->right);
+                level=1;
+            }else{
+                if(vec[0]->val%2!=0) return false;
+                for(int e=1;e<n;e++){
+                    if(vec[e-1]->left) vec.push_back(vec[e-1]->left);
+                    if(vec[e-1]->right) vec.push_back(vec[e-1]->right);
+                    if(vec[e]->val%2!=0 || vec[e-1]->val<=vec[e]->val) return false;
+                }
+                if(vec[n-1]->left) vec.push_back(vec[n-1]->left);
+                if(vec[n-1]->right) vec.push_back(vec[n-1]->right);
+                level=0;
+            }
+            vec.erase(begin(vec),begin(vec)+n);
         }
         return true;
     }
