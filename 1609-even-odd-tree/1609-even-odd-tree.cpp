@@ -53,6 +53,7 @@ public:
 
         // Second approach
 
+        /*
         vector<TreeNode*> vec;
         vec.push_back(root);
         int level=0;
@@ -80,6 +81,36 @@ public:
                 level=0;
             }
             vec.erase(begin(vec),begin(vec)+n);
+        }
+        return true;
+        */
+
+        // Third approach (Smooth code)
+
+        queue<TreeNode*> kyu;
+        kyu.push(root);
+        int flag=0;
+        while(!kyu.empty()){
+            int sz=kyu.size();
+            int prev_one=INT_MIN;
+            int prev_two=INT_MAX;
+            while(sz--){
+                TreeNode* curr_node=kyu.front(); kyu.pop();
+                if(curr_node->left) kyu.push(curr_node->left);
+                if(curr_node->right) kyu.push(curr_node->right);
+                if(flag==0){
+                    if(!(curr_node->val%2)) return false;
+                    if(curr_node->val>prev_one) prev_one=curr_node->val;
+                    else return false;
+                }else{
+                    if(curr_node->val%2) return false;
+                    if(curr_node->val<prev_two) prev_two=curr_node->val;
+                    else return false;
+                }
+                
+            }
+            if(flag==0) flag=1;
+            else flag=0;
         }
         return true;
     }
