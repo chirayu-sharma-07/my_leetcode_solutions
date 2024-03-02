@@ -48,11 +48,41 @@ public:
 
         // Second approach
 
+        /*
         int n=nums.size();
         for(int e=0;e<n;e++){
             nums[e]=nums[e]*nums[e];
         }
         sort(begin(nums),end(nums));
+        return nums;
+        */
+
+        // Third approach
+
+        int last_indexed_negative_number=-1;
+        int n=nums.size();
+        int e=0;
+        for(;e<n;e++){
+            if(nums[e]>=0){
+                break;
+            }
+            nums[e]=nums[e]*nums[e];
+        }
+        while(e<n){
+            nums[e]=nums[e]*nums[e];
+            e++;
+        }
+        sort(begin(nums),end(nums));
+        return nums;
+        if(last_indexed_negative_number==-1 || last_indexed_negative_number==0) return nums;
+        e=0;
+        while(e<last_indexed_negative_number){
+            int g=nums[e];
+            nums[e]=nums[last_indexed_negative_number];
+            nums[last_indexed_negative_number]=g;
+            e++;
+            last_indexed_negative_number--;
+        }
         return nums;
     }
 };
