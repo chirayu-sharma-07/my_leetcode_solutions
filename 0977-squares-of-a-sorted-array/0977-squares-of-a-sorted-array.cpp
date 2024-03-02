@@ -1,6 +1,10 @@
 class Solution {
 public:
     vector<int> sortedSquares(vector<int>& nums) {
+        
+        // First Approach
+
+        /*
         vector<int> array_for_negative_values;
         int n=nums.size();
         int e=0;
@@ -39,6 +43,16 @@ public:
             g++;
             f++;
         }
+        return nums;
+        */
+
+        // Second approach
+
+        int n=nums.size();
+        for(int e=0;e<n;e++){
+            nums[e]=nums[e]*nums[e];
+        }
+        sort(begin(nums),end(nums));
         return nums;
     }
 };
