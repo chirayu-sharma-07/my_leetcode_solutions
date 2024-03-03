@@ -10,47 +10,31 @@
  */
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-
-        //Approach one
-
-        /*
-        if(n==1){
-            if(head->next==NULL) return NULL;
-            ListNode *l=head;
-            for(;l->next->next!=NULL;l=l->next);
-            l->next=NULL;
-            return head;
+    ListNode* reverseLinkedList(ListNode* head){
+        if(head==NULL || head->next==NULL) return head;
+        ListNode* prev=NULL;
+        ListNode* nxt=head->next;
+        while(nxt){
+            head->next=prev;
+            prev=head;
+            head=nxt;
+            nxt=nxt->next;
         }
-        int nodeCount=1;
-        for(ListNode *l=head;l->next!=NULL;l=l->next,nodeCount++);
-        if(n==nodeCount) return head->next;
-        int indexOfNodeToDelete=nodeCount-n;
-        ListNode *l=head;
-        for(int e=1;e<indexOfNodeToDelete;e++,l=l->next);
-        l->next=l->next->next;
+        head->next=prev;
         return head;
     }
-    */
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        
+        // Brute force approach
 
-    // Approach two
-
-    if(head->next==NULL) return NULL;
-    ListNode *l=head;
-    int count=0;
-    while(l!=NULL){
-        l=l->next;
-        count++;
-    }
-    count-=n;
-    count--;
-    if(count<0) return head->next;
-    l=head;
-    while(count!=0){
-        l=l->next;
-        count--;
-    }
-    l->next=l->next->next;
-    return head;
+        if(head->next==NULL) return NULL;
+        ListNode *new_node=new ListNode(7);
+        new_node->next=reverseLinkedList(head);
+        head=new_node;
+        n--;
+        while(n--) head=head->next;
+        head->next=head->next->next;
+        new_node->next=reverseLinkedList(new_node->next);
+        return new_node->next;
     }
 };
