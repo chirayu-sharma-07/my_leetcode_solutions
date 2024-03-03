@@ -43,6 +43,7 @@ public:
 
         // Second approach
 
+        /*
         if(head->next==NULL) return NULL;
         int node_count=2;
         ListNode *temp=head->next->next;
@@ -59,5 +60,19 @@ public:
         }
         head->next=head->next->next;
         return new_node->next;
+        */
+
+        // Third approach
+
+        ListNode *first_pointer=head;
+        ListNode *second_pointer=first_pointer;
+        for(int e=0;e<n;e++) first_pointer=first_pointer->next;
+        if(!first_pointer) return head->next;
+        while(first_pointer->next){
+            first_pointer=first_pointer->next;
+            second_pointer=second_pointer->next;
+        }
+        second_pointer->next=second_pointer->next->next;
+        return head;
     }
 };
