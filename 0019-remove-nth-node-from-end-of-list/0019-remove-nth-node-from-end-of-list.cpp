@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+    /*
     ListNode* reverseLinkedList(ListNode* head){
         if(head==NULL || head->next==NULL) return head;
         ListNode* prev=NULL;
@@ -23,10 +24,12 @@ public:
         head->next=prev;
         return head;
     }
+    */
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         
         // Brute force approach
 
+        /*
         if(head->next==NULL) return NULL;
         ListNode *new_node=new ListNode(7);
         new_node->next=reverseLinkedList(head);
@@ -35,6 +38,26 @@ public:
         while(n--) head=head->next;
         head->next=head->next->next;
         new_node->next=reverseLinkedList(new_node->next);
+        return new_node->next;
+        */
+
+        // Second approach
+
+        if(head->next==NULL) return NULL;
+        int node_count=2;
+        ListNode *temp=head->next->next;
+        while(temp){
+            node_count++;
+            temp=temp->next;
+        }
+        node_count-=n;
+        ListNode *new_node=new ListNode(7);
+        new_node->next=head;
+        head=new_node;
+        while(node_count--){
+            head=head->next;
+        }
+        head->next=head->next->next;
         return new_node->next;
     }
 };
