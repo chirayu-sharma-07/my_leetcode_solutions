@@ -19,26 +19,29 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if(root==NULL) return root;
+        if(!root) return root;
         vector<Node*> vec;
         vec.push_back(root);
+        int sz=1;
         while(vec.size()!=0){
-            int n=vec.size();
+            int n=0;
+            for(int e=0;e<sz;e++){
+                if(vec[e]->left){
+                    vec.push_back(vec[e]->left);
+                    n++;
+                }
+                if(vec[e]->right){
+                    vec.push_back(vec[e]->right);
+                    n++;
+                }
+            }
             int e=0;
-            while(e<n-1){
+            for(;e<sz-1;e++){
                 vec[e]->next=vec[e+1];
-                e++;
             }
             vec[e]->next=NULL;
-            for(e=0;e<n;e++){
-                if(vec[e]->left!=NULL){
-                    vec.push_back(vec[e]->left);
-                }
-                if(vec[e]->right!=NULL){
-                    vec.push_back(vec[e]->right);
-                }
-            }
-            vec.erase(begin(vec),begin(vec)+n);
+            vec.erase(begin(vec),begin(vec)+sz);
+            sz=n;
         }
         return root;
     }
