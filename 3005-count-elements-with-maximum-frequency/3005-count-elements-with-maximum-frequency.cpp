@@ -45,6 +45,7 @@ public:
 
         // Third approach
         
+        /*
         unordered_map<int,int> myMap;
         int n=nums.size();
         for(int e=0;e<n;e++){
@@ -59,5 +60,21 @@ public:
             if(e.second==result) n++;
         }
         return n*result;
+        */
+
+        // Fourth approach
+
+        unordered_map<int,int> myMap;
+        int result[2]={0,0};
+        for(auto &e:nums){
+            myMap[e]++;
+        }
+        for(auto &e:myMap){
+            if(e.second>result[0]){
+                result[1]=1;
+                result[0]=e.second;
+            }else if(e.second==result[0]) result[1]++;
+        }
+        return result[1]*result[0];
     }
 };
