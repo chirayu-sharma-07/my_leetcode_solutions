@@ -1,6 +1,10 @@
 class Solution {
 public:
     int maxFrequencyElements(vector<int>& nums) {
+
+        // First approach
+
+        /*
         vector<int> freq(101);
         int n=nums.size();
         int result=0;
@@ -15,5 +19,25 @@ public:
             n--;
         }
         return result;
+        */
+
+        // Second approach
+
+        int result[2]={0,0};
+        sort(begin(nums),end(nums));
+        int n=nums.size();
+        for(int e=0;e<n;){
+            int num=nums[e];
+            int count=0;
+            while(e<n && nums[e]==num){
+                e++;
+                count++;
+            }
+            if(result[0]<count){
+                result[0]=count;
+                result[1]=1;
+            }else if(result[0]==count) result[1]++;
+        }
+        return result[0]*result[1];
     }
 };
