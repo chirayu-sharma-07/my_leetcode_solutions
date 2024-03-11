@@ -1,6 +1,10 @@
 class Solution {
 public:
     string customSortString(string order, string s) {
+
+        // First approach
+
+        /*
         vector<int> freq(26,0);
         int n=s.size();
         for(int e=0;e<n;e++){
@@ -21,6 +25,32 @@ public:
                 while(freq[n]){
                     s+=n+'a';
                     freq[n]--;
+                }
+            }
+        }
+        return s;
+        */
+
+        // Second approach
+
+        unordered_map<char,int> myMap;
+        for(auto &e:s){
+            myMap[e]++;
+        }
+        s="";
+        for(auto &e:order){
+            if(myMap[e]){
+                while(myMap[e]!=0){
+                    s+=e;
+                    myMap[e]--;
+                }
+            }
+        }
+        for(auto &e:myMap){
+            if(e.second!=0){
+                while(e.second!=0){
+                    s+=e.first;
+                    e.second--;
                 }
             }
         }
