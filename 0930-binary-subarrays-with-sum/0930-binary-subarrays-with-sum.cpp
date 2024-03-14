@@ -20,6 +20,7 @@ public:
 
         // Second approach (using hashmap)
 
+        /*
         unordered_map<int,int> myMap;
         myMap[0]=1;
         int n=nums.size();
@@ -27,6 +28,20 @@ public:
         int sum=0;
         for(int e=0;e<n;e++){
             sum+=nums[e];
+            if(myMap.find(sum-goal)!=myMap.end()){
+                result+=myMap[sum-goal];
+            }
+            myMap[sum]++;
+        }
+        return result;
+        */
+
+        unordered_map<int,int> myMap;
+        myMap[0]=1;
+        int sum=0;
+        int result=0;
+        for(int &e:nums){
+            sum+=e;
             if(myMap.find(sum-goal)!=myMap.end()){
                 result+=myMap[sum-goal];
             }
