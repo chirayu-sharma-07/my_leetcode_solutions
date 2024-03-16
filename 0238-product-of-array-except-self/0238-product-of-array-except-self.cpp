@@ -42,6 +42,7 @@ public:
 
         // Second approach (Using O(N) extra space)
 
+        /*
         int n=nums.size();
         vector<int> left(n);
         vector<int> right(n);
@@ -56,5 +57,21 @@ public:
             left[e]=left[e]*right[e];
         }
         return left;
+        */
+
+        // Third approach (Without using extra space)
+
+        int n=nums.size();
+        vector<int> result(n);
+        result[0]=1;
+        for(int e=1;e<n;e++){
+            result[e]=result[e-1]*nums[e-1];
+        }
+        int helper=1;
+        for(int e=n-1;e>=0;e--){
+            result[e]=result[e]*helper;
+            helper*=nums[e];
+        }
+        return result;
     }
 };
