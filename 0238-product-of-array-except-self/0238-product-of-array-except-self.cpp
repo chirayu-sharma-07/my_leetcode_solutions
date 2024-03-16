@@ -1,40 +1,37 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
+        int zero_count=0;
         int n=nums.size();
-        int e=0;
-        int zeroIndex=-1;
-        for(;e<n;e++){
+        int zero_index=-1;
+        for(int e=0;e<n;e++){
             if(nums[e]==0){
-                zeroIndex=e;
-                break;
-            }
-        }
-        long long multiplication=1;
-        if(zeroIndex!=-1){
-            for(e=zeroIndex+1;e<n;e++){
-                if(nums[e]==0){
-                    fill(begin(nums),end(nums),0);
-                    return nums;
+                if(zero_count==0){
+                    zero_index=e;
                 }
-            }
-            for(e=0;e<n;e++){
-                if(e==zeroIndex) continue;
-                multiplication*=(long long)nums[e];
-            }
-        }else{
-            for(e=0;e<n;e++){
-                multiplication*=(long long)nums[e];
+                if(zero_count==2) break;
+                zero_count++;
             }
         }
-        if(zeroIndex!=-1){
-            fill(begin(nums),end(nums),0);
-            nums[zeroIndex]=(int)multiplication;
+        if(zero_count==2){
+            for(int e=0;e<n;e++) nums[e]=0;
+            return nums;
+        }else if(zero_count==1){
+            long long product=1;
+            for(int e=0;e<n;e++){
+                if(e==zero_index) continue;
+                product*=nums[e];
+            }
+            for(int e=0;e<n;e++) nums[e]=0;
+            nums[zero_index]=product;
             return nums;
         }else{
-            for(e=0;e<n;e++){
-                nums[e]=(int)multiplication/nums[e];
+            long long product=1;
+            for(int &e:nums) product*=e;
+            for(int e=0;e<n;e++){
+                nums[e]=product/nums[e];
             }
+            return nums;
         }
         return nums;
     }
