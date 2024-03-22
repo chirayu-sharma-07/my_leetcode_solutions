@@ -10,6 +10,10 @@
  */
 class Solution {
 public:
+
+    // First approach
+
+    /*
     ListNode* reverse_linked_list(ListNode *head){
         ListNode *p1=NULL;
         ListNode *p2=head->next;
@@ -41,6 +45,35 @@ public:
             fast=fast->next;
         }
         if(fast==NULL){
+            if(slow==head || slow==head->next) return true;
+        }
+        return false;
+        */
+
+        // Second approach
+
+    bool isPalindrome(ListNode* head) {
+        if(!head->next) return true;
+        ListNode *myNode=new ListNode(7);
+        myNode->next=head;
+        ListNode *slow=myNode;
+        ListNode *fast=slow;
+        while(fast && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        head=slow;
+        stack<ListNode*> st;
+        while(slow->next){
+            st.push(slow->next);
+            slow=slow->next;
+        }
+        slow=myNode->next;
+        while(!st.empty() && st.top()->val==slow->val){
+            st.pop();
+            slow=slow->next;
+        }
+        if(st.empty()){
             if(slow==head || slow==head->next) return true;
         }
         return false;
