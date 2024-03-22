@@ -4,10 +4,11 @@ public:
         unordered_map<int,int> myMap;
         int n=nums.size();
         for(int e=0;e<n;e++){
-            if(myMap.find(target-nums[e])==myMap.end()){
+            int num=target-nums[e];
+            if(myMap.find(num)==myMap.end()){
                 myMap[nums[e]]=e;
             }else{
-                return {myMap[target-nums[e]],e};
+                return {myMap[num],e};
             }
         }
         return {-1,-1};
