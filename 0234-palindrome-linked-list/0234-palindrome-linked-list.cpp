@@ -52,6 +52,7 @@ public:
 
         // Second approach
 
+    /*
     bool isPalindrome(ListNode* head) {
         if(!head->next) return true;
         ListNode *myNode=new ListNode(7);
@@ -77,5 +78,25 @@ public:
             if(slow==head || slow==head->next) return true;
         }
         return false;
+    }
+    */
+
+    // Third approach
+
+    bool isPalindrome(ListNode* head) {
+        if(!head->next) return true;
+        vector<int> vec;
+        while(head){
+            vec.push_back(head->val);
+            head=head->next;
+        }
+        int e=0;
+        int f=vec.size()-1;
+        while(e<=f){
+            if(vec[e]!=vec[f]) return false;
+            e++;
+            f--;
+        }
+        return true;
     }
 };
