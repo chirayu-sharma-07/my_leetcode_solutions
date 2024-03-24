@@ -17,10 +17,22 @@ public:
 
         // Second approach
         
+        /*
         sort(begin(nums),end(nums));
         int n=nums.size();
         for(int e=0;e<n-1;e++){
             if(nums[e]==nums[e+1]) return nums[e];
+        }
+        return 0;
+        */
+
+        // Third approach
+
+        unordered_set<int> mySet;
+        for(int &e:nums){
+            if(mySet.find(e)==mySet.end()){
+                mySet.insert(e);
+            }else return e;
         }
         return 0;
     }
