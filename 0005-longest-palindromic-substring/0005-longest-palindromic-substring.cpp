@@ -1,28 +1,29 @@
 class Solution {
-private:
-    vector<int> expandAroundCentre(string s,int e,int f){
-        while(e>=0 && f<s.size() && s.at(e)==s.at(f)){
-            e--;
-            f++;
-        }
-        return {e+1,f-1};
-    }
 public:
+    string str="";
+    bool isPalindromicQuestionMark(int e,int f){
+        while(e<f){
+            if(str[e]!=str[f]) return false;
+            e++;
+            f--;
+        }
+        return true;
+    }
     string longestPalindrome(string s) {
-        if(s.size()==1) return s;
-        vector<int> resultantSubstringIndices={0,0};
-        for(int e=0;e<s.size();e++){
-            vector<int> palindromicSubstringIndices=expandAroundCentre(s,e,e);
-            if((palindromicSubstringIndices[1]-palindromicSubstringIndices[0])>(resultantSubstringIndices[1]-resultantSubstringIndices[0])){
-                resultantSubstringIndices=palindromicSubstringIndices;
-            }
-            if(e+1<s.size() && s.at(e)==s.at(e+1)){
-                vector<int> evenLengthPalindromicSubstringIndices=expandAroundCentre(s,e,e+1);
-                if(evenLengthPalindromicSubstringIndices[1]-evenLengthPalindromicSubstringIndices[0]>resultantSubstringIndices[1]-resultantSubstringIndices[0]){
-                    resultantSubstringIndices=evenLengthPalindromicSubstringIndices;
+        str=s;
+        int n=s.size();
+        int i=0;
+        int j=0;
+        for(int e=0;e<n;e++){
+            for(int f=e;f<n;f++){
+                if(isPalindromicQuestionMark(e,f)){
+                    if(f-e>j-i){
+                        j=f;
+                        i=e;
+                    }
                 }
             }
         }
-        return s.substr(resultantSubstringIndices[0],resultantSubstringIndices[1]-resultantSubstringIndices[0]+1);
+        return s.substr(i,j-i+1);
     }
 };
