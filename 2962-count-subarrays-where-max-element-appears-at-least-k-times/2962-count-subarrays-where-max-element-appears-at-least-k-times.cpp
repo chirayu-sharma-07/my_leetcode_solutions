@@ -60,6 +60,7 @@ public:
 
         // Third approach
 
+        /*
         int max_ele=*max_element(begin(nums),end(nums));
         int n=nums.size();
         long long result=0;
@@ -74,6 +75,23 @@ public:
                 e++;
             }
             f++;
+        }
+        return result;
+        */
+
+        // Fourth approach
+
+        int max_ele=*max_element(begin(nums),end(nums));
+        int n=nums.size();
+        vector<int> indexes;
+        long long result=0;
+        for(int e=0;e<n;e++){
+            if(nums[e]==max_ele){
+                indexes.push_back(e);
+            }
+            if(indexes.size()>=k){
+                result+=indexes[indexes.size()-k]+1;
+            }
         }
         return result;
     }
