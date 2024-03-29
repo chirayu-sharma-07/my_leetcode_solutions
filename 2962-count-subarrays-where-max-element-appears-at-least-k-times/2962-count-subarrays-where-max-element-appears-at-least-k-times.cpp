@@ -64,17 +64,13 @@ public:
         int n=nums.size();
         long long result=0;
         int e=0;
-        int f=0;
+        int f=e;
         int max_element_count=0;
         while(f<n){
-            if(nums[f]==max_ele){
-                max_element_count++;
-            }
+            if(nums[f]==max_ele) max_element_count++;
             while(max_element_count>=k){
                 result+=(n-f);
-                if(nums[e]==max_ele){
-                    max_element_count--;
-                }
+                if(nums[e]==max_ele) max_element_count--;
                 e++;
             }
             f++;
