@@ -12,8 +12,13 @@ public:
         }
         s="";
         while(!st.empty()){
-            s=st.top()+s;
+            s+=st.top();
             st.pop();
+        }
+        for(int e=0,f=s.size()-1;e<f;e++,f--){
+            char g=s[e];
+            s[e]=s[f];
+            s[f]=g;
         }
         return s;
     }
