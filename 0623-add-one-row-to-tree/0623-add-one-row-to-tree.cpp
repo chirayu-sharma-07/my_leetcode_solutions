@@ -10,7 +10,13 @@
  * };
  */
 class Solution {
+private:
+    int Val,Depth;
 public:
+
+    // First approach (Return type of myFunction is TreeNode*)
+
+    /*
     int Depth=0;
     int Val=0;
     TreeNode* myFunction(TreeNode* root,int curr_level){
@@ -37,5 +43,34 @@ public:
         Depth=depth;
         Val=val;
         return myFunction(root,1);
+    }
+    */
+
+    // Second approach (Return type is void)
+
+
+    void myFunction(TreeNode *root,int level){
+        if(!root) return;
+        if(level==Depth-1){
+            TreeNode *first=root->left;
+            TreeNode *second=root->right;
+            root->left=new TreeNode(Val);
+            root->right=new TreeNode(root->left->val);
+            if(root->left) root->left->left=first;
+            if(root->right) root->right->right=second;
+        }
+        myFunction(root->left,level+1);
+        myFunction(root->right,level+1);
+    }
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        if(depth==1){
+            TreeNode *new_root=new TreeNode(val);
+            new_root->left=root;
+            return new_root;
+        }
+        Val=val;
+        Depth=depth;
+        myFunction(root,1);
+        return root;
     }
 };
