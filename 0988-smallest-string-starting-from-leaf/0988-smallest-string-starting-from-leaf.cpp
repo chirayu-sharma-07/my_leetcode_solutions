@@ -11,6 +11,10 @@
  */
 class Solution {
 public:
+
+    // First approach
+
+    /*
     vector<string> vec;
     string s="";
     string reverseString(string s){
@@ -45,5 +49,26 @@ public:
         myFunction(root);
         sort(begin(vec),end(vec));
         return vec[0];
+    }
+    */
+
+    // Second approach
+
+    string result="";
+    void myFunction(TreeNode *root,string s){
+        if(!root) return;
+        s=char(root->val+'a')+s;
+        if(!root->left && !root->right){
+            if(result.size()==0 || s<result){
+                result=s;
+            }
+            return;
+        }
+        myFunction(root->left,s);
+        myFunction(root->right,s);
+    }
+    string smallestFromLeaf(TreeNode* root) {
+        myFunction(root,"");
+        return result;
     }
 };
