@@ -31,6 +31,7 @@ public:
 
     // Same approach as previous (DFS) but code is clean
 
+    /*
     int d=0;
     unordered_map<int,vector<int>> myMap;
     bool myFunction(int source,vector<bool> &visited){
@@ -50,5 +51,33 @@ public:
             myMap[e[1]].push_back(e[0]);
         }
         return myFunction(source,visited);
+    }
+    */
+
+
+    // Third approach (BFS)
+
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        unordered_map<int,vector<int>> myMap;
+        for(auto &e:edges){
+            myMap[e[0]].push_back(e[1]);
+            myMap[e[1]].push_back(e[0]);
+        }
+        vector<bool> visited(n);
+        queue<int> q;
+        q.push(source);
+        visited[source]=!visited[source];
+        while(!q.empty()){
+            if(q.front()==destination) return true;
+            int num=q.front();
+            q.pop();
+            for(auto &e:myMap[num]){
+                if(!visited[e]){
+                    q.push(e);
+                    visited[e]=!visited[e];
+                }
+            }
+        }
+        return false;
     }
 };
