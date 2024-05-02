@@ -23,6 +23,7 @@ public:
 
         // Approach two
 
+        /*
         unordered_set<int> mySet;
         for(int &e:nums){
             if(e<0 && mySet.find(e)==mySet.end()) mySet.insert(e);
@@ -32,5 +33,18 @@ public:
             if(e>0 && e>largest && mySet.find((-1)*e)!=mySet.end()) largest=e;
         }
         return (largest==INT_MIN)?-1:largest;
+        */
+
+        // Approach three
+
+        sort(begin(nums),end(nums));
+        for(int e=0,f=nums.size()-1;e<f;){
+            int g=nums[e]*(-1);
+            int h=nums[f];
+            if(g==h) return g;
+            else if(g>h) e++;
+            else f--;
+        }
+        return -1;
     }
 };
